@@ -12,21 +12,29 @@ describe('Location Controller', function(){
 
 	// Setup the controller before each test
 	beforeEach(inject(function($controller, $rootScope){
+		// Create the scope
 		scope = $rootScope.$new();		
-		mockLocationService = sinon.stub({locations: function(){}});
-	 	$controllerConstructor = $controller;
+
+		// Hold onto the controller constructor
+		$controllerConstructor = $controller;
+
+		// Mock out the weather service
+		mockLocationService = sinon.stub({ locations: function(){}, getWeather: function(){} });
 	}));
 
 	it('should get all the locations from the weather service', function(){
+		// Configure the mock object to return the correct data
 		var mockLocations =  {name:'Test1', locationName:'Test Location Name 1'};
 		mockLocationService.locations.returns(mockLocations);
 
-		var ctrl = $controllerConstructor("locationCtrl", 
-			{$scope: scope, $q: {}, weatherService: mockLocationService});
+		// Setup the controller
+		var ctrl = $controllerConstructor("locationCtrl", {$scope: scope, $q: {}, weatherService: mockLocationService});
 
-		console.log('Test', scope.locations());
-		console.log('Mock', mockLocationService.locations());
+		// Assert
 		expect(scope.locations()).toBe(mockLocations);
 	});
+
+	// Needs more tests to actually test the load locations call
+	
 
 });

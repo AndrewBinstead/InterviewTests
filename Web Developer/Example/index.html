@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>This is my test weather page</title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">		 -->
+	</head>
+	<body ng-app="weatherApp">
+		<div class="container" ng-controller="locationCtrl" ng-init="init();">
+			<h1>Ink Weather App</h1>
+			<div class="row">				
+				<div class="col-sm-12">					
+					Please select your location: 
+					<select ng-model="currentLocation" ng-change="changeLocation()" ng-options="c.name for c in locations"></select>
+
+					<!-- Shown when loading data -->
+					<div ng-show="isLoading">
+						<div class="col-sm-4">
+							<p><img src="img/loading.gif" width="30" /> Loading. Please wait.</p>
+						</div>
+					</div>
+
+					<!-- Shown when an error occures -->
+					<div class="row" ng-show="isError">
+						<p>
+							<div class="col-sm-4 alert alert-danger">
+								<i class="glyphicon glyphicon-remove"></i> An error occured
+							</div>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row" ng-hide="isLoading||isError">
+				<div class="col-sm-4">
+					<h4>Location</h4>
+					Name: {{weather.name}}<br/>
+					Long: {{weather.coord.lon}}<br/>
+					Lat: {{weather.coord.lat}}<br/>
+				</div>
+
+				<div class="col-sm-4">
+					<h4>Weather</h4>
+					<div ng-repeat="w in weather.weather">
+						<img ng-src="http://openweathermap.org/img/w/{{w.icon}}.png" />
+						{{w.main}} - {{w.description}}
+						<br />
+					</div>
+				</div>
+
+				<div class="col-sm-4">
+					<h4>Details</h4>
+					<p>
+						Temperature: {{weather.main.temp - 273.15 | number:0}}&deg;C ({{weather.main.temp_min - 273.15 | number:0}}&deg;C - {{weather.main.temp_max - 273.15 | number:0}}&deg;C)<br/>
+						Pressure: {{weather.main.pressure}} hPa<br/>
+						Humidity: {{weather.main.humidity}}%
+					</p>
+				</div>
+			</div>
+		</div>
+		
+
+		<script src="js/angular.js"></script>
+		<script src="js/angular-resource.js"></script>
+
+		<script src="script/weatherApp.js"></script>
+		<script src="script/services/weatherService.js"></script>
+		<script src="script/controllers/locationCtrl.js"></script>		
+	</body>
+</html>
+
+
+
+
+

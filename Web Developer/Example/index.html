@@ -19,7 +19,7 @@
 
 					<!-- Shown when loading data -->
 					<div ng-show="isLoading">
-						<div class="col-sm-4">
+						<div class="col-sm-12">
 							<p><img src="img/loading.gif" width="30" /> Loading. Please wait.</p>
 						</div>
 					</div>
@@ -27,8 +27,15 @@
 					<!-- Shown when an error occures -->
 					<div class="row" ng-show="isError">
 						<p>
-							<div class="col-sm-4 alert alert-danger">
-								<i class="glyphicon glyphicon-remove"></i> An error occured
+							<div class="col-sm-12 alert alert-danger">								
+								<p>
+									<i class="glyphicon glyphicon-remove"></i>
+									<b>An error occured</b>
+								</p>
+								<p>
+									This can occur when the service was unable to contact the server, or when the server
+									thinks the request isn't valid as a cross site request. Try again.
+								</p>
 							</div>
 						</p>
 					</div>
